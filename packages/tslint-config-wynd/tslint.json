@@ -1,0 +1,9 @@
+{
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "extends": [
+    "tslint:latest",
+    "tslint-config-airbnb",
+    "./wynd.json",
+    "tslint-config-prettier"
+  ]
+}

@@ -1,0 +1,7 @@
+/node_modules/
+tslint-ouput.txt
+
+# override global gitignore
+!.vscode
+.vscode/*
+!.vscode/settings.json

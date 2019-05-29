@@ -1,0 +1,44 @@
+{
+  "name": "@wynd/tslint-config-wynd",
+  "version": "1.4.0",
+  "description": "Global tslint config rules for all front projects using typescript",
+  "main": "tslint.json",
+  "repository": "git@gitlab.wynd.eu:direction-technique/front/tslint-config-wynd.git",
+  "homepage": "https://github.com/Wynd-Lab/tslint-config-wynd",
+  "author": "Lilian Saget-Lethias <lsagetlethias@wynd.eu>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "wsc syncPeer",
+    "postupgrade": "yarn postinstall",
+    "pub": "wsc pub --no-build --public",
+    "pub:dev": "wsc pub:dev --no-build --public",
+    "diffRules": "wsc diffTslint",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
+  },
+  "dependencies": {
+    "prettier": "~1.16.4",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.0",
+    "tslint-react": "^4.0.0"
+  },
+  "devDependencies": {
+    "@wynd/wynd-script": "^1.5.1",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.3"
+  },
+  "peerDependencies": {
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "LICENSE",
+    "react.json",
+    "wynd.json",
+    "tslint.json",
+    "package.json"
+  ]
+}

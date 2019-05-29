@@ -1,0 +1,11 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/react.json",
+        "/wynd.json"
+      ],
+      "url": "http://json.schemastore.org/tslint"
+    }
+  ]
+}
