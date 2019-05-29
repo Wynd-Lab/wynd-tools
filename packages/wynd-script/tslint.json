@@ -1,0 +1,6 @@
+{
+    "extends": "@wynd/tslint-config-wynd",
+    "rules": {
+        "no-console": false
+    }
+}

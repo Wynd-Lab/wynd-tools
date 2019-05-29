@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": [
+      "esnext"
+    ],
+    "outDir": "../dist",
+    "declarationDir": "../dist",
+    "declaration": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "pretty": true
+  }
+}
