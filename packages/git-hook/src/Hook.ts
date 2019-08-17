@@ -9,7 +9,7 @@ export abstract class Hook {
 
     constructor() {
         [this.oldRev, this.newRev, this.refName] = fs
-            .readFileSync(0 as any)
+            .readFileSync(0 as any, 'utf-8')
             .toString()
             .replace('\n', '')
             .split(' ');

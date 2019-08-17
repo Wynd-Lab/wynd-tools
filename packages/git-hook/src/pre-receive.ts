@@ -18,6 +18,7 @@ export default class PreReceiveHook extends Hook {
     ];
 
     public async run() {
+        console.log(this);
         if (this.isNewBranch()) {
             if (!this.isAlphaNumBranch()) {
                 throw new PreReceiveHookException('Branch name should be lowercased and alphanumeric.');

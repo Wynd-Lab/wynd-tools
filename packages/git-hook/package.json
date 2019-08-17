@@ -1,8 +1,14 @@
 {
-  "name": "wynd_hooks",
+  "name": "@wynd/git-hook",
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist/* && tsc -p ./src/tsconfig.json"
+  },
+  "engines": {
+    "node": ">=6"
+  },
   "devDependencies": {
     "@types/node": "^6",
     "@types/rimraf": "^2.0.2",
@@ -11,7 +17,7 @@
     "tslint": "^5.9.1",
     "typescript": "^3.5.3"
   },
-  "scripts": {
-    "build": "rimraf dist/* && tsc -p ./src/tsconfig.json"
-  }
+  "files": [
+    "dist/"
+  ]
 }

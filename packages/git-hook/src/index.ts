@@ -12,19 +12,24 @@ export type ServerHookName = 'pre-receive' | 'post-receive' | 'pre-update' | 'up
 
 export type HookName = ClientHookName | ServerHookName;
 
-export async function hook(name: HookName) {
+export async function hook(name: HookName | typeof Hook) {
     try {
-        const hookPath = `./${name}.js`;
-        const hookObj: Hook = new (await import(hookPath)).default();
+        let hookObj: Hook;
+        if (typeof name === 'string') {
+            const hookPath = `./${name}.js`;
+            hookObj = new (await import(hookPath)).default();
+        } else {
+            hookObj = new (name as any)();
+        }
         await hookObj.run();
     } catch (e) {
         if (e instanceof HookException) {
-            console.error(``);
+            console.error('');
             console.error(`Hook "${e.hookType}" failed.`);
             `Reason: ${e.message}`.split('\n').forEach(m => {
                 console.error(`\x1b[31m${m}\x1b[0m`);
             });
-            console.error(``);
+            console.error('');
             return process.exit(1);
         }
         console.warn(`\nGit hook "${name}" is configured but not available.\n`);
