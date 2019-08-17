@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "description": "Git Hook with Wynd rules. Can be extended. Meant to be globally installed. Node 6+ compatible and dependency-less.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Wynd-Lab/git-hook.git"
+  },
+  "author": "Lilian Saget-Lethias <lsagetlethias@wynd.eu>",
   "scripts": {
     "build": "rimraf dist/* && tsc -p ./src/tsconfig.json"
   },
