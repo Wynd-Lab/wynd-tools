@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "module": "commonjs",
+    "target": "es6",
+    "allowJs": false,
+    "checkJs": false,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "esnext"
+    ],
+    "listFiles": false,
+    "declaration": true,
+    "declarationDir": "../dist/",
+    "outDir": "../dist/"
+  }
+}

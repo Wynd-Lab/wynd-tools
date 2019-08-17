@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@wynd/tslint-config-wynd"
+  ],
+  "rules": {
+    "no-console": false,
+    "no-unused-variable": false,
+    "no-default-export": false
+  }
+}
