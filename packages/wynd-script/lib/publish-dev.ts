@@ -26,9 +26,11 @@ function main(): void {
         'dev',
     );
 
-    for (const script of ['install', 'upgrade']) {
-        delete packageFile.scripts[`pre${script}`];
-        delete packageFile.scripts[`post${script}`];
+    if (packageFile.scripts) {
+        for (const script of ['install', 'upgrade']) {
+            delete packageFile.scripts[`pre${script}`];
+            delete packageFile.scripts[`post${script}`];
+        }
     }
 
     if (!writeNewVersion(newDevVersion)) {
