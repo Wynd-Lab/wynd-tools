@@ -31,9 +31,11 @@ export { packageFile };
 const originalPackage = { ...packageFile };
 const originalScripts = { ...packageFile.scripts };
 
-for (const script of ['install', 'upgrade']) {
-    delete packageFile.scripts[`pre${script}`];
-    delete packageFile.scripts[`post${script}`];
+if (packageFile.scripts) {
+    for (const script of ['install', 'upgrade']) {
+        delete packageFile.scripts[`pre${script}`];
+        delete packageFile.scripts[`post${script}`];
+    }
 }
 
 let prepared = false;
@@ -51,7 +53,7 @@ export function __prepareScript(scriptName = 'WyndScript', callbackExit: NodeJS.
     console.log = message => oldLog(`\x1b[36m\x1b[2m[${scriptName}]\x1b[0m ${message}`);
     console.warn = message => oldWarn(`\x1b[36m\x1b[2m[${scriptName}]\x1b[0m ${message}`);
 
-    if (!packageFile.scripts['build']) {
+    if (!packageFile.scripts || !packageFile.scripts['build']) {
         console.warn(`'build' script not found in ${packageFilePath}`);
         noBuildScript = true;
     }
