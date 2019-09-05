@@ -2,13 +2,17 @@ import child_process from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
+interface PackageJsonField {
+    [entry: string]: string;
+}
+
 interface PackageJson {
-    scripts?: object;
-    dependencies?: object;
-    devDependencies?: object;
-    peerDependencies?: object;
-    version?: string;
-    name?: string;
+    scripts?: PackageJsonField;
+    dependencies?: PackageJsonField;
+    devDependencies?: PackageJsonField;
+    peerDependencies?: PackageJsonField;
+    version: string;
+    name: string;
 }
 
 if (!global.__WSC.package) {
@@ -18,10 +22,10 @@ export const packageFilePath = global.__WSC.package.startsWith('/')
     ? global.__WSC.package
     : path.resolve(process.cwd(), global.__WSC.package);
 
-let packageFile: PackageJson;
+let packageFile: PackageJson = {} as any;
 try {
     packageFile = require(packageFilePath);
-} catch {
+} catch (e) {
     console.error(`Cannot resolve package json file: ${packageFilePath}`);
     process.exit(1);
 }

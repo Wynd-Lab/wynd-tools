@@ -7,7 +7,7 @@ const API_TOKEN = process.env.GITLAB_API_READ_ONLY_TOKEN;
 const CI_API_URL = process.env.CI_API_URL;
 const CI_PROJECT_ID = process.env.CI_PROJECT_ID;
 const REF = global.__WSC.ref;
-const THRESHOLD = global.__WSC.threshold;
+const THRESHOLD = global.__WSC.threshold || 0;
 
 async function main(): Promise<void> {
     __prepareScript('compareCoverage', () => {
@@ -31,6 +31,14 @@ async function main(): Promise<void> {
     }
 }
 
+interface PipelineDto {
+    id: number;
+    status: string;
+    ref: string;
+    sha: string;
+    web_url: string;
+}
+
 async function compareCoverage(): Promise<boolean> {
     try {
         let coverage: CoverageSummary;
@@ -41,7 +49,7 @@ async function compareCoverage(): Promise<boolean> {
             return false;
         }
 
-        const pipelines = (await axios.get(
+        const pipelines = (await axios.get<PipelineDto[]>(
             `${CI_API_URL}/projects/${CI_PROJECT_ID}/pipelines?private_token=${API_TOKEN}&ref=${REF}`,
         )).data;
 

@@ -33,7 +33,7 @@ function main(): void {
         }
     }
 
-    if (!writeNewVersion(newDevVersion)) {
+    if (!writeNewVersion(newDevVersion!)) {
         console.warn('Aborting. Please check you package.json, and clean it if needed with git.');
         process.exit(1);
         return;
@@ -90,9 +90,9 @@ function getRemoteVersion(): string | false {
             return remoteLatestVersion.trim();
         }
 
-        const baseNextVersion = semver.valid(semver.coerce(remoteNextVersion));
+        const baseNextVersion = semver.valid(semver.coerce(remoteNextVersion)!);
         // (1)
-        if (semver.gt(remoteLatestVersion, baseNextVersion)) {
+        if (semver.gt(remoteLatestVersion, baseNextVersion!)) {
             return remoteLatestVersion.trim();
         }
         // (3) (4)

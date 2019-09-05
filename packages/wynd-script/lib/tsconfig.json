@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "declaration": true,
     "downlevelIteration": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "../dist",
+    "pretty": true,
+    "resolveJsonModule": true,
+    "strict": true,
     "target": "es2017",
     "lib": [
       "esnext"
-    ],
-    "outDir": "../dist",
-    "declarationDir": "../dist",
-    "declaration": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "pretty": true
+    ]
   }
 }

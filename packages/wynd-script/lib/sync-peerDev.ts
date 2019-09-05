@@ -1,21 +1,20 @@
 import { __prepareScript, finish, packageFile as pfile } from './__index';
 
-const packageFile: { peerDependencies?: any } & typeof pfile = pfile;
+const packageFile = pfile;
 
-const MONOREPO = global.__WSC.monorepo; // TODO
+// const MONOREPO = global.__WSC.monorepo; // TODO
 
 __prepareScript('SyncPeerDev');
 async function main() {
     let write = false;
-    if (packageFile.peerDependencies) {
-        Object.keys(packageFile.devDependencies).forEach(dep => {
-            if (
-                packageFile.peerDependencies[dep] &&
-                packageFile.peerDependencies[dep] !== packageFile.devDependencies[dep]
-            ) {
+    const peerDeps = packageFile.peerDependencies;
+    const devDeps = packageFile.devDependencies || {};
+    if (peerDeps) {
+        Object.keys(peerDeps).forEach(dep => {
+            if (peerDeps[dep] && peerDeps[dep] !== devDeps[dep]) {
                 write = true;
-                console.log(`📦  ${dep}: "${packageFile.devDependencies[dep]}"`);
-                packageFile.peerDependencies[dep] = packageFile.devDependencies[dep];
+                console.log(`📦  ${dep}: "${devDeps[dep]}"`);
+                peerDeps[dep] = devDeps[dep];
             }
         });
     }

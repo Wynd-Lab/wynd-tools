@@ -34,18 +34,18 @@ try {
     process.exit(1);
 }
 
-const alreadyChecked = [];
+const alreadyChecked: string[] = [];
 const rulesFound: {
     [RULE_NAME: string]: RuleFound[];
 } = {};
 async function main() {
     console.log(`Check rules in ${tslintFilePath}. ✅  = You can safely delete this rule`);
 
-    if (typeof tslintJson.extends === 'string') {
-        tslintJson.extends = [tslintJson.extends];
+    if (!Array.isArray(tslintJson.extends)) {
+        tslintJson.extends = tslintJson.extends ? [tslintJson.extends] : [];
     }
 
-    let rules: TSLintRules;
+    let rules: TSLintRules | undefined;
     for (const e of tslintJson.extends.reverse()) {
         rules = await getLibRules(e);
         rules && (await checkRules(rules, e));
@@ -67,7 +67,7 @@ async function main() {
 /**
  * @param e Extends lib name
  */
-async function getLibRules(e: string, from: string = ''): Promise<TSLintRules> {
+async function getLibRules(e: string, from: string = ''): Promise<TSLintRules | undefined> {
     if (e.includes('-plugin-')) {
         VERBOSE &&
             console.warn(
@@ -97,7 +97,7 @@ async function checkRules(r: TSLintRules, e: string) {
     if (r.extends) {
         const extendsList =
             typeof r.extends === 'string' ? [r.extends] : r.extends.filter(sube => !alreadyChecked.includes(sube));
-        let subRules: TSLintRules;
+        let subRules: TSLintRules | undefined;
 
         let from = process.cwd();
         try {
@@ -115,16 +115,22 @@ async function checkRules(r: TSLintRules, e: string) {
         return;
     }
 
+    const isKeyOfRules = (rule: string, rulesMap: typeof tslintRules): rule is keyof typeof tslintRules => {
+        return rule in rulesMap;
+    };
+
     for (const rule in tslintJson.rules) {
         if (rule === 'prettier') {
             continue;
         }
         VERBOSE && console.log(`\x1b[2mCheck ${rule} ...\x1b[0m`);
-        if (rule in rules) {
+        if (isKeyOfRules(rule, rules)) {
             rulesFound[rule] = rulesFound[rule] || [];
             let compare = rules[rule] === tslintJson.rules[rule];
-            if (Array.isArray(rules[rule])) {
-                compare = compareArrays(rules[rule], tslintJson.rules[rule]);
+            const ruleValue1 = rules[rule];
+            const ruleValue2 = tslintJson.rules[rule];
+            if (Array.isArray(ruleValue1)) {
+                compare = Array.isArray(ruleValue2) && compareArrays(ruleValue1, ruleValue2);
             }
 
             if (compare) {
