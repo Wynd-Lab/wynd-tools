@@ -1,24 +1,23 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
     "allowJs": false,
-    "checkJs": false,
-    "experimentalDecorators": true,
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
+    "checkJs": false,
+    "declaration": true,
+    "downlevelIteration": true,
     "esModuleInterop": true,
+    "listFiles": false,
+    "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "../dist/",
     "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
     "lib": [
       "esnext"
-    ],
-    "listFiles": false,
-    "declaration": true,
-    "declarationDir": "../dist/",
-    "outDir": "../dist/"
+    ]
   }
 }
