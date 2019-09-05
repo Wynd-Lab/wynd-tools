@@ -1,6 +1,6 @@
 {
   "name": "@wynd/wynd-script",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "List of various useful Javascript related scripts compiled in one repository",
   "main": "index.js",
   "repository": "git@github.com:Wynd-Lab/wynd-script.git",

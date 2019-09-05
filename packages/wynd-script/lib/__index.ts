@@ -29,7 +29,7 @@ try {
 export { packageFile };
 
 const originalPackage = { ...packageFile };
-const originalScripts = { ...packageFile.scripts };
+const originalScripts = packageFile.scripts ? { ...packageFile.scripts } : undefined;
 
 if (packageFile.scripts) {
     for (const script of ['install', 'upgrade']) {
@@ -126,7 +126,7 @@ export function rollback() {
 }
 
 export function finish(p: typeof originalPackage) {
-    p.scripts = originalScripts;
+    originalScripts && (p.scripts = originalScripts);
     console.info('Rewriting new version into package.json...');
 
     return writePackageJson(p);
