@@ -17,6 +17,7 @@ export default class PreReceiveHook extends Hook {
         /^refs\/heads\/archi\/.+/,
         /^refs\/heads\/test\/.+/,
         /^refs\/heads\/ci\/.+/,
+        /^refs\/heads\/dependabot.*/,
     ];
 
     public async run() {
