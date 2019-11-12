@@ -1,6 +1,6 @@
 {
   "name": "@wynd/tslint-config-wynd",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "Global tslint config rules for all front projects using typescript",
   "main": "tslint.json",
   "repository": "git@gitlab.wynd.eu:direction-technique/front/tslint-config-wynd.git",
@@ -16,7 +16,7 @@
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "dependencies": {
-    "prettier": "~1.16.4",
+    "prettier": "^1.19.1",
     "tslint-config-airbnb": "^5.11.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.0",
@@ -28,8 +28,7 @@
     "typescript": "^3.4.3"
   },
   "peerDependencies": {
-    "tslint": "^5.15.0",
-    "typescript": "^3.4.3"
+    "tslint": "^5.15.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
