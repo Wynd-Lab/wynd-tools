@@ -2,8 +2,8 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "/react.json",
-        "/wynd.json"
+        "/packages/tslint-config-wynd/react.json",
+        "/packages/tslint-config-wynd/wynd.json"
       ],
       "url": "http://json.schemastore.org/tslint"
     }
