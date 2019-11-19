@@ -8,11 +8,12 @@
   "author": "Lilian Saget-Lethias <lsagetlethias@wynd.eu>",
   "license": "MIT",
   "scripts": {
-    "postinstall": "wsc syncPeer",
+    "postinstall": "yarn set-wsc && wsc syncPeer",
     "postupgrade": "yarn postinstall",
     "pub": "wsc pub --no-build --public",
     "pub:dev": "wsc pub:dev --no-build --public",
     "diffRules": "wsc diffTslint",
+    "set-wsc": "rimraf ../wynd-script/dist/* && tsc -p ../wynd-script/lib",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "dependencies": {
