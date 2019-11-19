@@ -1,0 +1,22 @@
+{
+  "name": "wynd-tools",
+  "description": "tooling monorepo",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Wynd-Lab/wynd-tools.git"
+  },
+  "homepage": "https://github.com/Wynd-Lab/wynd-tools",
+  "author": "Paul Souche <paul.souche@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [
+    "tooling",
+    "wynd"
+  ],
+  "devDependencies": {
+    "lerna": "^3.18.4"
+  }
+}
