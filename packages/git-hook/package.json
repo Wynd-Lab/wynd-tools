@@ -12,9 +12,6 @@
   "scripts": {
     "build": "rimraf dist/* && tsc -p ./src/tsconfig.json"
   },
-  "engines": {
-    "node": ">=6"
-  },
   "devDependencies": {
     "@types/node": "^12.12.9",
     "@types/rimraf": "^2.0.3",
