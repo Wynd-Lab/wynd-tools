@@ -1,6 +1,6 @@
-import { HookName } from '.';
+import { HookName } from './interfaces/HookName';
 
-export class HookException extends Error {
+export default class HookException extends Error {
     constructor(public hookType: HookName, message?: string) {
         super(message);
     }
