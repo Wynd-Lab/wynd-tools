@@ -1,3 +1,4 @@
+import getNewCommitsList from '../git/GetNewCommitsList';
 import Hook from '../Hook';
 import HookException from '../HookException';
 
@@ -10,6 +11,7 @@ class PreReceiveHookException extends HookException {
 export interface PreReceiveHookConfig {
     validPrefixes?: RegExp[];
     validPattern?: RegExp;
+    commitAuthorEmailDomain?: string;
 }
 
 export default class PreReceiveHook extends Hook {
@@ -38,6 +40,13 @@ export default class PreReceiveHook extends Hook {
                     .replace('/^refs\\/heads\\/', '')}`,
             );
         }
+
+        // Validate commits author email domain
+        if (!(await this.hasValidAuthors())) {
+            throw new PreReceiveHookException(
+                `Invalid commit(s) author ! you need to commit with your ${this.config.commitAuthorEmailDomain} email`,
+            );
+        }
     }
 
     /**
@@ -54,5 +63,22 @@ export default class PreReceiveHook extends Hook {
     public hasValidBranchPrefix() {
         const { validPrefixes } = this.config;
         return !validPrefixes || !validPrefixes.length || validPrefixes.some(r => r.test(this.refName));
+    }
+
+    /**
+     * Test if the commit emails match the domain.
+     */
+    public async hasValidAuthors() {
+        const { commitAuthorEmailDomain } = this.config;
+        if (!commitAuthorEmailDomain) {
+            return true;
+        }
+
+        const commitList = await getNewCommitsList(this.newRev);
+
+        return commitList.every(
+            ({ committerEmailDomain, authorEmailDomain }) =>
+                committerEmailDomain === commitAuthorEmailDomain && authorEmailDomain === commitAuthorEmailDomain,
+        );
     }
 }

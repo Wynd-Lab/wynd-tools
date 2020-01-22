@@ -25,6 +25,7 @@ Then use a pre defined hook:
 #!/usr/bin/env node
 
 require('@wynd/git-hook').default('pre-receive', {
+    commitAuthorEmailDomain: 'yourdomain.com'
     validPattern: /^refs\/heads\/[-a-z0-9_.\/]+$/,
     validPrefixes: [
         /^refs\/heads\/develop$/,
