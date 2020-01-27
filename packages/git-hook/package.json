@@ -13,6 +13,9 @@
     "build": "rimraf dist/* && tsc -p ./src/tsconfig.json",
     "lint": "tslint --project src/tsconfig.json -c tslint.json 'src/**/*.ts*'"
   },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
   "devDependencies": {
     "@types/node": "^12.12.9",
     "@types/rimraf": "^2.0.3",
