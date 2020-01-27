@@ -1,23 +1,19 @@
 import Hook from './Hook';
 import HookException from './HookException';
-import { PreReceiveHookConfig } from './hooks/pre-receive';
+import PreReceiveHook, { PreReceiveHookConfig } from './hooks/pre-receive';
 import { HookCtor } from './interfaces/HookCtor';
 import { HookName } from './interfaces/HookName';
 
 async function createHook(hookType: HookName | HookCtor, config: object) {
-    try {
-        let hookObj: Hook;
-        if (typeof hookType === 'string') {
-            const hookPath = `./hooks/${hookType}.js`;
-            hookObj = new (await import(hookPath)).default(config);
-        } else {
-            hookObj = new hookType(config);
-        }
-        return hookObj;
-    } catch (e) {
-        console.warn(`\nGit hook "${hookType}" is configured but not available.\n`);
-        console.log(e);
-        return process.exit(0);
+    switch (hookType) {
+        case 'pre-receive':
+            return new PreReceiveHook(config);
+        default:
+            if (typeof hookType === 'function') {
+                return new hookType(config);
+            }
+            console.warn(`\nGit hook "${hookType}" is configured but not available.\n`);
+            return process.exit(0);
     }
 }
 
