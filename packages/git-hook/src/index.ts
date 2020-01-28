@@ -1,26 +1,27 @@
-import { Hook } from './Hook';
-import { HookException } from './HookException';
+import Hook from './Hook';
+import HookException from './HookException';
+import PreReceiveHook, { PreReceiveHookConfig } from './hooks/pre-receive';
+import { HookCtor } from './interfaces/HookCtor';
+import { HookName } from './interfaces/HookName';
 
-export type ClientHookName =
-    | 'applypatch-msg'
-    | 'commit-msg'
-    | 'pre-commit'
-    | 'pre-push'
-    | 'pre-rebase'
-    | 'prepare-commit-message';
-export type ServerHookName = 'pre-receive' | 'post-receive' | 'pre-update' | 'update' | 'post-update';
+async function createHook(hookType: HookName | HookCtor, config: object) {
+    switch (hookType) {
+        case 'pre-receive':
+            return new PreReceiveHook(config);
+        default:
+            if (typeof hookType === 'function') {
+                return new hookType(config);
+            }
+            console.warn(`\nGit hook "${hookType}" is configured but not available.\n`);
+            return process.exit(0);
+    }
+}
 
-export type HookName = ClientHookName | ServerHookName;
-
-export async function hook(name: HookName | typeof Hook) {
+async function hook(hookType: 'pre-receive', config: PreReceiveHookConfig): Promise<void>;
+async function hook(hookType: HookName | HookCtor, config: object): Promise<void>;
+async function hook(hookType: HookName | HookCtor, config: object = {}): Promise<void> {
     try {
-        let hookObj: Hook;
-        if (typeof name === 'string') {
-            const hookPath = `./${name}.js`;
-            hookObj = new (await import(hookPath)).default();
-        } else {
-            hookObj = new (name as any)();
-        }
+        const hookObj = await createHook(hookType, config);
         await hookObj.run();
     } catch (e) {
         if (e instanceof HookException) {
@@ -32,8 +33,14 @@ export async function hook(name: HookName | typeof Hook) {
             console.error('');
             return process.exit(1);
         }
-        console.warn(`\nGit hook "${name}" is configured but not available.\n`);
+        console.warn(`\nAn unexpected error occured ! Skip hook\n`);
         console.log(e);
         return process.exit(0);
     }
 }
+
+export * from './interfaces/HookCtor';
+export * from './interfaces/HookName';
+export { Hook, HookException };
+
+export default hook;

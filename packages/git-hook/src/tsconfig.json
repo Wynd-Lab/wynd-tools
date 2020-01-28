@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "allowSyntheticDefaultImports": true,
     "checkJs": false,
     "declaration": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "listFiles": false,
+    "importHelpers": true,
     "module": "commonjs",
     "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "../dist/",
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es6",
+    "target": "esnext",
     "lib": [
       "esnext"
     ]

@@ -1,13 +1,13 @@
 import fs from 'fs';
 
-export abstract class Hook {
+export default abstract class Hook {
     public static readonly ZERO_COMMIT = '0000000000000000000000000000000000000000';
 
     public readonly oldRev: string;
     public readonly newRev: string;
     public readonly refName: string;
 
-    constructor() {
+    constructor(public readonly config: object) {
         [this.oldRev, this.newRev, this.refName] = fs
             .readFileSync(0 as any, 'utf-8')
             .toString()

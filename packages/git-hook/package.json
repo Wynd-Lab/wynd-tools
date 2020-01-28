@@ -10,10 +10,11 @@
   },
   "author": "Lilian Saget-Lethias <lsagetlethias@wynd.eu>",
   "scripts": {
-    "build": "rimraf dist/* && tsc -p ./src/tsconfig.json"
+    "build": "rimraf dist/* && tsc -p ./src/tsconfig.json",
+    "lint": "tslint --project src/tsconfig.json -c tslint.json 'src/**/*.ts*'"
   },
-  "engines": {
-    "node": ">=6"
+  "dependencies": {
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.9",
