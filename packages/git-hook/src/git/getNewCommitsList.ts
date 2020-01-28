@@ -1,4 +1,4 @@
-import gitCommand from './GitCommand';
+import gitCommand from './gitCommand';
 
 interface Commit {
     tree?: string;

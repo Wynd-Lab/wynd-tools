@@ -1,4 +1,4 @@
-import getNewCommitsList from '../git/GetNewCommitsList';
+import getNewCommitsList from '../git/getNewCommitsList';
 import Hook from '../Hook';
 import HookException from '../HookException';
 
