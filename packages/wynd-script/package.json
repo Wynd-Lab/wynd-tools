@@ -18,9 +18,6 @@
     "pub:dev": "yarn start pub:dev --public",
     "lint": "tslint --project lib/tsconfig.json -c tslint.json 'lib/**/*.ts*'"
   },
-  "engines": {
-    "node": ">=10"
-  },
   "devDependencies": {
     "@types/node": "^13.5.1",
     "@types/semver": "^7.1.0",
