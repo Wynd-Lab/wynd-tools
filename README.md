@@ -1,5 +1,6 @@
 # Wynd Tools
 
+[![Build Status](https://travis-ci.org/Wynd-Lab/wynd-tools.svg?branch=develop)](https://travis-ci.org/Wynd-Lab/wynd-tools)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **Wynd Tools** is a tooling monorepo built by [Wynd](https://www.wynd.eu) and used by our frontend projects.
