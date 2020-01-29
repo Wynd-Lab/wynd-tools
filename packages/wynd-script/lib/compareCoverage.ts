@@ -1,7 +1,7 @@
 import axios from 'axios';
 import path from 'path';
-import { __prepareScript } from './__index';
 import { CoverageSummary } from './interfaces';
+import { __prepareScript } from './__index';
 
 const API_TOKEN = process.env.GITLAB_API_READ_ONLY_TOKEN;
 const CI_API_URL = process.env.CI_API_URL;
@@ -49,9 +49,11 @@ async function compareCoverage(): Promise<boolean> {
             return false;
         }
 
-        const pipelines = (await axios.get<PipelineDto[]>(
-            `${CI_API_URL}/projects/${CI_PROJECT_ID}/pipelines?private_token=${API_TOKEN}&ref=${REF}`,
-        )).data;
+        const pipelines = (
+            await axios.get<PipelineDto[]>(
+                `${CI_API_URL}/projects/${CI_PROJECT_ID}/pipelines?private_token=${API_TOKEN}&ref=${REF}`,
+            )
+        ).data;
 
         const lastRefBranchPipeLineSuccess = pipelines.find(elm => elm.status === 'success');
 
@@ -61,9 +63,11 @@ async function compareCoverage(): Promise<boolean> {
         }
 
         const lastPipelineId = lastRefBranchPipeLineSuccess.id;
-        const pipeline = (await axios.get(
-            `${CI_API_URL}/projects/${CI_PROJECT_ID}/pipelines/${lastPipelineId}?private_token=${API_TOKEN}`,
-        )).data;
+        const pipeline = (
+            await axios.get(
+                `${CI_API_URL}/projects/${CI_PROJECT_ID}/pipelines/${lastPipelineId}?private_token=${API_TOKEN}`,
+            )
+        ).data;
 
         const refCoverage = parseFloat(pipeline.coverage);
 
