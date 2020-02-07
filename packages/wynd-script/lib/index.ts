@@ -27,6 +27,7 @@ const scripts = {
     pack: './pack.js',
     pub: './publish.js',
     'pub:dev': './publish-dev.js',
+    'pub:rc': './publish-rc.js',
     syncPeer: './sync-peerDev.js',
 };
 

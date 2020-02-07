@@ -23,11 +23,13 @@ or through your package.json scripts with: `wsc <command> [options]`
 
 - `wsc diffTslint [./tslint.json]`: expose a diff between you tslint.json file and alors tslint config rules that your config extends. It helps for deduping and cleaning tslint config files.
 
-- `wsc pub [--no-build] [--npm] [--public]`: publish your package on "@latest" npm tag relatively to your version. Make sure to be logged once with npm and yarn to your registry. If `--no-build` is specified, no `yarn build` command will be called. By default, yarn client will be used to publish, you can set `--npm` to use npm instead.  
-:warning: In npm mode, when publishing a scoped package, npm will use `.npmrc` registry option before cli flag or `package.json` `publishConfig` object.  
+- `wsc pub [--no-build] [--npm] [--public]`: publish your package on "@latest" npm tag relatively to your version. Make sure to be logged once with npm and yarn to your registry. If `--no-build` is specified, no `yarn build` command will be called. By default, yarn client will be used to publish, you can set `--npm` to use npm instead.
+:warning: In npm mode, when publishing a scoped package, npm will use `.npmrc` registry option before cli flag or `package.json` `publishConfig` object.
 In case of scopped package, you can also provide the `--public ` flag if you want to publish it with a public access.
 
 - `wsc pub:dev [--no-build]`: like the command before but on "@next" npm tag. The version used is computed to be like `<your version patch bumped>-dev.x` (e.g. if your on version `1.0.0`, the next version will be `1.0.1-dev.0` then `dev.1` and so on).
+
+- `wsc pub:rc [--no-build]`: like the command before but on "@rc" npm tag. The version used is computed to be like `<your version patch bumped>-rc.x` (e.g. if your on version `1.0.0`, the next version will be `1.0.1-rc.0` then `rc.1` and so on).
 
 - `wsc syncPeer`: it will modify your package json file to synchronize your peerDependencies with your devDependencies. It can be set to the `postinstall` and `postupdate` npm hooks.
 
