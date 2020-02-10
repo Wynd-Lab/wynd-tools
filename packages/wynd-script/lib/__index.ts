@@ -96,12 +96,11 @@ export function build(): boolean {
     }
 }
 
-export function publish(next = false) {
+export function publish(tag: 'next' | 'rc' | 'latest' = 'latest') {
     const npm = global.__WSC.npm,
         isPublic = global.__WSC.public;
     try {
-        const typeVersion = next ? 'next' : 'latest';
-        console.info(`Publishing ${packageFile.name}@${typeVersion} version...`);
+        console.info(`Publishing ${packageFile.name}@${tag} version...`);
         npm &&
             console.warn(
                 'In npm mode, when publishing a scoped package, npm will use ".npmrc" registry option before cli flag or "package.json" publishConfig object.',
@@ -110,7 +109,7 @@ export function publish(next = false) {
         child_process.execSync(
             `${npm ? 'npm' : 'yarn'} publish ${
                 isPublic ? '--access public' : ''
-            } --verbose --non-interactive --no-git-tag-version --tag ${typeVersion}`,
+            } --verbose --non-interactive --no-git-tag-version --tag ${tag}`,
             {
                 stdio: [0, 1, 2],
             },
