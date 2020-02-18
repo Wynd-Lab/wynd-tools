@@ -39,6 +39,7 @@ async function hook(hookType: HookName | HookCtor, config: object = {}): Promise
     }
 }
 
+export * from './interfaces/Commit';
 export * from './interfaces/HookCtor';
 export * from './interfaces/HookName';
 export { Hook, HookException };

@@ -1,6 +1,7 @@
 import getNewCommitsList from '../git/getNewCommitsList';
 import Hook from '../Hook';
 import HookException from '../HookException';
+import { Commit } from '../interfaces/Commit';
 
 class PreReceiveHookException extends HookException {
     constructor(message?: string) {
@@ -12,6 +13,7 @@ export interface PreReceiveHookConfig {
     validPrefixes?: RegExp[];
     validPattern?: RegExp;
     commitAuthorEmailDomain?: string;
+    validateCommits?: (commits: Commit[]) => void | never | Promise<void | never>;
 }
 
 export default class PreReceiveHook extends Hook {
@@ -47,6 +49,15 @@ export default class PreReceiveHook extends Hook {
                 `Invalid commit(s) author ! you need to commit with your ${this.config.commitAuthorEmailDomain} email`,
             );
         }
+
+        try {
+            await this.validateCommits();
+        } catch (e) {
+            if (e instanceof HookException) {
+                throw e;
+            }
+            console.warn(`\nvalidateCommits should raise a HookException in case of error. Skip validation\n`);
+        }
     }
 
     /**
@@ -77,8 +88,23 @@ export default class PreReceiveHook extends Hook {
         const commitList = await getNewCommitsList(this.newRev);
 
         return commitList.every(
-            ({ committerEmailDomain, authorEmailDomain }) =>
-                committerEmailDomain === commitAuthorEmailDomain && authorEmailDomain === commitAuthorEmailDomain,
+            ({ committerEmail, authorEmail }) =>
+                committerEmail?.endsWith(`@${commitAuthorEmailDomain}`) &&
+                authorEmail?.endsWith(`@${commitAuthorEmailDomain}`),
         );
+    }
+
+    /**
+     * Client hook to validate if commits are valid.
+     */
+    public async validateCommits(): Promise<void> {
+        const { validateCommits } = this.config;
+        if (!validateCommits) {
+            return;
+        }
+
+        const commitList = await getNewCommitsList(this.newRev);
+
+        return validateCommits(commitList);
     }
 }
