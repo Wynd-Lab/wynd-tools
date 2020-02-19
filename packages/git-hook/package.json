@@ -1,6 +1,6 @@
 {
   "name": "@wynd/git-hook",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/index.js",
   "license": "MIT",
   "description": "Git Hook with Wynd rules. Can be extended. Meant to be globally installed. Node 6+ compatible and dependency-less.",
